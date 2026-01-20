@@ -2,6 +2,12 @@
 
 This repository contains the configuration files for my home laboratory environment. The project focuses on automation, network security, and self-hosted service monitoring.
 
+## 🌟 Key Features
+- **Centralized Ad-Blocking:** Network-wide protection using AdGuard Home.
+- **Proactive Monitoring:** 24/7 service availability checks with Discord alerts.
+- **Secure Remote Access:** Zero-trust architecture using Tailscale VPN.
+- **Infrastructure as Code:** All services managed via Docker Compose for easy deployment and scalability.
+
 ## 🏗️ Architecture & Stack
 - **Hardware:** Dell OptiPlex (Proxmox Hypervisor)
 - **Operating System:** Ubuntu Server 24.04 LTS
@@ -9,16 +15,17 @@ This repository contains the configuration files for my home laboratory environm
 - **Networking:** Zero-Trust VPN via Tailscale
 
 ## 🛡️ Deployed Services
-- **AdGuard Home:** Network-wide DNS filtering and ad-blocking.
-- **Uptime Kuma:** Real-time service monitoring with Discord notification hooks.
-- **Portainer:** Container management and visualization.
+- **AdGuard Home:** DNS filtering & network-wide ad-blocking.
+- **Uptime Kuma:** Uptime monitoring with Discord integration.
+- **Portainer:** Container management & orchestration UI.
+- **Nginx Proxy Manager:** Advanced reverse proxy used for SSL management and routing local domains (e.g., *local) to internal services.
 
 ## 🔒 Security Hardening
-- **SSH Security:** Password authentication disabled; RSA-4096 key-pair authentication enforced.
-- **Access Control:** No public ports exposed; all remote management performed over an encrypted Tailscale tunnel.
-- **Proximity:** Implementation of Fail2Ban for automated brute-force protection (planned).
+- **Hardened SSH:** Password authentication disabled; RSA-4096 key-pair authentication enforced.
+- **Zero-Exposure Policy:** No public ports opened on the router; management via encrypted tunnel.
+- **Host Security:** Automated security updates and firewall (UFW) management.
 
 ## 🛠️ Usage
-Each service is organized into its own directory containing a `docker-compose.yml` file. 
-To deploy a service, navigate to the directory and run:
-`docker compose up -d`
+To deploy any service, navigate to its directory and run:
+```bash
+docker compose up -d
