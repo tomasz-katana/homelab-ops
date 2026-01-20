@@ -23,6 +23,8 @@ This repository contains the configuration files for my home laboratory environm
 | **Nginx Proxy** | `http://192.168.1.53:81` | Reverse Proxy Management UI |
 | **Portainer** | `http://portainer.lab` | Docker Container Management |
 | **Uptime Kuma** | `http://kuma.lab` | Service Uptime & Notifications |
+| **FileBrowser** | `http://files.lab` | Personal cloud & web file manager |
+
 
 ## 🛠️ Usage & Maintenance
 To deploy or update services:
