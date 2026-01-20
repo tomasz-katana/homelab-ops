@@ -13,14 +13,29 @@
         icon: portainer.png
         href: http://portainer.lab
         description: Docker Management
-        widget:
-            type: docker
-            url: /var/run/docker.sock
-            label: Portainer
-            container: portainer
 
 - Monitoring:
     - Uptime Kuma:
         icon: uptime-kuma.png
         href: http://kuma.lab
         description: Status Monitoring
+    - Grafana:
+        icon: grafana.png
+        href: http://grafana.lab
+        description: System Monitoring
+    - Prometheus:
+        icon: prometheus.png
+        href: http://192.168.1.53:9090
+        description: Metrics Base
+
+- Storage:
+    - File Manager:
+        icon: filebrowser.png
+        href: http://files.lab
+        description: Cloud File Access
+        widget:
+            type: docker
+            url: /var/run/docker.sock
+            container: filebrowser
+
+
