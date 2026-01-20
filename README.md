@@ -20,7 +20,7 @@ This repository contains the configuration files for my home laboratory environm
 | :--- | :--- | :--- |
 | **Homepage** | `http://homepage.lab` | Main entry point & system dashboard |
 | **AdGuard Home** | `http://adguard.lab` | DNS Filtering & Local DNS Rewrites |
-| **Nginx Proxy** | `http://192.168.1.53:81` | Reverse Proxy Management UI |
+| **Nginx Proxy** | `http://nginx.lab` | Reverse Proxy Management UI |
 | **Portainer** | `http://portainer.lab` | Docker Container Management |
 | **Uptime Kuma** | `http://kuma.lab` | Service Uptime & Notifications |
 | **FileBrowser** | `http://files.lab` | Personal cloud & web file manager |
