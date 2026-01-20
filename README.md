@@ -20,6 +20,7 @@ This repository contains the configuration files for my home laboratory environm
 - **Uptime Kuma:** Uptime monitoring with Discord integration.
 - **Portainer:** Container management & orchestration UI.
 - **Nginx Proxy Manager:** Advanced reverse proxy used for SSL management and routing local domains (e.g., *local) to internal ser>
+- **Portainer (portainer.lab):** Container management & orchestration UI.
 
 ##  ^=^t^r Security Hardening
 - **Hardened SSH:** Password authentication disabled; RSA-4096 key-pair authentication enforced.
