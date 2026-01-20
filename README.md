@@ -24,6 +24,8 @@ This repository contains the configuration files for my home laboratory environm
 | **Portainer** | `http://portainer.lab` | Docker Container Management |
 | **Uptime Kuma** | `http://kuma.lab` | Service Uptime & Notifications |
 | **FileBrowser** | `http://files.lab` | Personal cloud & web file manager |
+| **Prometheus** | `http://prometeus.lab` | Time-series database for metrics |
+| **Grafana**    | `http://grafana.lab`       | Monitoring dashboards (Port 3002) |
 
 
 ## 🛠️ Usage & Maintenance
