@@ -1,0 +1,26 @@
+- Infrastructure:
+    - AdGuard Home:
+        icon: adguard-home.png
+        href: http://adguard.lab
+        description: DNS Filter
+        widget:
+            type: adguard
+            url: http://192.168.1.53:8080
+            username: tomek
+            password: Tomek!Serwer2026!Portainer
+
+    - Portainer:
+        icon: portainer.png
+        href: http://portainer.lab
+        description: Docker Management
+        widget:
+            type: docker
+            url: /var/run/docker.sock
+            label: Portainer
+            container: portainer
+
+- Monitoring:
+    - Uptime Kuma:
+        icon: uptime-kuma.png
+        href: http://kuma.lab
+        description: Status Monitoring
