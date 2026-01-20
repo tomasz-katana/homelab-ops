@@ -7,12 +7,17 @@
             type: adguard
             url: http://192.168.1.53:8080
             username: tomek
-            password: Tomek!Serwer2026!Portainer
+            password: "{{HOMEPAGE_VAR_ADGUARD_PASS}}"
 
     - Portainer:
         icon: portainer.png
-        href: http://portainer.lab
+        href: https://ubuntu-lab.tailc02cb2.ts.net
         description: Docker Management
+        widget:
+            type: portainer
+            url: https://ubuntu-lab.tailc02cb2.ts.net
+            env: 1
+            key: "{{HOMEPAGE_VAR_PORTAINER_KEY}}"
 
 - Monitoring:
     - Uptime Kuma:

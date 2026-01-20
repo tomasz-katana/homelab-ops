@@ -10,3 +10,8 @@ homepage/config/logs/
 *.sqlite
 *.log
 .env
+custom.env
+*.env
+certs/
+*.key
+*.crt
