@@ -1,34 +1,36 @@
+# 🚀 HomeLab Infrastructure as Code (IaC)
 
-## HomeLab Infrastructure as Code (IaC)
+This repository contains the configuration files for my home laboratory environment. The project focuses on automation, network security, and centralized management.
 
-This repository contains the configuration files for my home laboratory environment. The project focuses on automation, network se>
+## 🌟 Key Features
+- **Unified Dashboard:** Centralized access via **Homepage** with live Docker metrics.
+- **Local DNS Management:** Network-wide ad-blocking and `.lab` domain resolution via **AdGuard Home**.
+- **Reverse Proxy:** SSL management and internal routing using **Nginx Proxy Manager**.
+- **Proactive Monitoring:** 24/7 service availability checks with **Uptime Kuma**.
+- **Infrastructure as Code:** Fully containerized setup managed via Docker Compose.
 
-##  Key Features
-- **Centralized Ad-Blocking:** Network-wide protection using AdGuard Home.
-- **Proactive Monitoring:** 24/7 service availability checks with Discord alerts.
-- **Secure Remote Access:** Zero-trust architecture using Tailscale VPN.
-- **Infrastructure as Code:** All services managed via Docker Compose for easy deployment and scalability.
-
-##  Architecture & Stack
+## 🏗️ Architecture & Stack
 - **Hardware:** Dell OptiPlex (Proxmox Hypervisor)
 - **Operating System:** Ubuntu Server 24.04 LTS
-- **Containerization:** Docker & Docker Compose
-- **Networking:** Zero-Trust VPN via Tailscale
+- **Network Routing:** Nginx Proxy Manager (Ports 80/443)
+- **Security:** Hardened SSH, UFW Firewall, and Tailscale Zero-Trust VPN.
 
-##  Deployed Services
-- **AdGuard Home:** DNS filtering & network-wide ad-blocking.
-- **Uptime Kuma:** Uptime monitoring with Discord integration.
-- **Portainer:** Container management & orchestration UI.
-- **Nginx Proxy Manager:** Advanced reverse proxy used for SSL management and routing local domains (e.g., *local) to internal ser>
-- **Portainer (portainer.lab):** Container management & orchestration UI.
+## 🛡️ Deployed Services & Access
+| Service | Domain | Description |
+| :--- | :--- | :--- |
+| **Homepage** | `http://homepage.lab` | Main entry point & system dashboard |
+| **AdGuard Home** | `http://adguard.lab` | DNS Filtering & Local DNS Rewrites |
+| **Nginx Proxy** | `http://192.168.1.53:81` | Reverse Proxy Management UI |
+| **Portainer** | `http://portainer.lab` | Docker Container Management |
+| **Uptime Kuma** | `http://kuma.lab` | Service Uptime & Notifications |
 
-##  Security Hardening
-- **Hardened SSH:** Password authentication disabled; RSA-4096 key-pair authentication enforced.
-- **Zero-Exposure Policy:** No public ports opened on the router; management via encrypted tunnel.
-- **Host Security:** Automated security updates and firewall (UFW) management.
-
-##  Usage
-To deploy any service, navigate to its directory and run:
+## 🛠️ Usage & Maintenance
+To deploy or update services:
 ```bash
+git pull origin main
 docker compose up -d
 
+## 🔒 Security Hardening
+Zero-Exposure: No ports are forwarded on the router. Access is only possible via local network or Tailscale VPN.
+
+Version Control: All configuration changes are tracked in this repository, excluding sensitive data via .gitignore.
