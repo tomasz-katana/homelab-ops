@@ -29,6 +29,7 @@ To deploy or update services:
 ```bash
 git pull origin main
 docker compose up -d
+```
 
 ## 🔒 Security Hardening
 Zero-Exposure: No ports are forwarded on the router. Access is only possible via local network or Tailscale VPN.
