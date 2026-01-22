@@ -1,13 +1,19 @@
 - resources:
     cpu: true
     memory: true
-    disk: /          # Monitoruje główny dysk systemu
+    disk: /
+
 - search:
     provider: google
     target: _blank
+
 - datetime:
-    text_size: xl
     format:
-      date: long
-      time: short
-      hour12: false
+      dateStyle: long
+      timeStyle: short
+
+- weather:
+    provider: openmeteo
+    latitude: 51.48
+    longitude: 21.45
+    units: metric

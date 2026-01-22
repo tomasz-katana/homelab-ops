@@ -47,3 +47,8 @@
             type: docker
             url: /var/run/docker.sock
             container: filebrowser
+- Security:
+    - Vaultwarden:
+        icon: vaultwarden.png
+        href: http://192.168.1.53:8083
+        description: Password Manager

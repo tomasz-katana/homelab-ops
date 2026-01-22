@@ -1,8 +1,1 @@
 ---
-providers:
-  openweathermap: openweathermapapikey
-  weatherapi: weatherapiapikey
-allowed_hosts:
-  - homepage.lab
-  - 192.168.1.53
-tlsInsecure: true
