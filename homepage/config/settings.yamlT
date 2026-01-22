@@ -1,4 +1,0 @@
----
-providers:
-  weatherapi: http://api.weatherapi.com/v1/current.json?key=Pionki&q=Pionki&aqi=no
-tlsInsecure: true
