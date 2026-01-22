@@ -57,7 +57,9 @@ docker compose up -d --remove-orphans
 sudo ufw status numbered
 
 ```
+
 ##🔒 Backups
+
 Configurations: Tracked in this repository.
 
 Secrets: Managed via environment variables and excluded from public history where possible.
