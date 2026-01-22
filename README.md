@@ -55,6 +55,7 @@ docker compose up -d --remove-orphans
 
 # Verify firewall status
 sudo ufw status numbered
+
 ```
 ##🔒 Backups
 Configurations: Tracked in this repository.
