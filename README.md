@@ -58,7 +58,7 @@ sudo ufw status numbered
 
 ```
 
-##ðŸ”’ Backups
+##ð Ÿ”’ Backups
 
 Configurations: Tracked in this repository.
 
