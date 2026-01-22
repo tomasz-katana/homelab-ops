@@ -44,10 +44,9 @@ git pull origin main
 # Update and restart containers
 docker compose up -d --remove-orphans
 ```
-
 ##🔒 Security Hardening
 Zero-Exposure: No ports are forwarded on the router. Access is only possible via local network or Tailscale Funnel/VPN.
 
 Privacy: AdGuard Home acts as a recursive DNS with encryption.
 
-Backups: Configurations are tracked here, sensitive secrets are managed via .env files (excluded from Git).
+Backups: Configurations are tracked here, sensitive secrets are managed via .env files (excluded from Git). EOF
