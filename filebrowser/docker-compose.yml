@@ -2,7 +2,6 @@ services:
   filebrowser:
     image: filebrowser/filebrowser:latest
     container_name: filebrowser
-    # Usuwamy linię "user", aby kontener wystartował jako root i sam nadał sobie uprawnienia
     ports:
       - "8081:80"
     volumes:

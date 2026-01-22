@@ -8,7 +8,6 @@
             url: http://192.168.1.53:8080
             username: tomek
             password: "{{HOMEPAGE_VAR_ADGUARD_PASS}}"
-
     - Portainer:
         icon: portainer.png
         href: https://ubuntu-lab.tailc02cb2.ts.net/portainer
@@ -17,7 +16,6 @@
             type: docker # Zmieniamy na docker dla stabilności
             url: /var/run/docker.sock
             container: portainer
-
 - Monitoring:
     - Uptime Kuma:
         icon: uptime-kuma.png
@@ -26,7 +24,6 @@
             type: docker
             url: /var/run/docker.sock
             container: uptime-kuma
-
     - Grafana:
         icon: grafana.png
         href: http://grafana.lab:3002 # Poprawiony port na 3002
@@ -34,7 +31,6 @@
             type: docker
             url: /var/run/docker.sock
             container: grafana
-
     - Prometheus:
         icon: prometheus.png
         href: http://192.168.1.53:9090
@@ -51,5 +47,3 @@
             type: docker
             url: /var/run/docker.sock
             container: filebrowser
-
-

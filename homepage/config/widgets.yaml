@@ -2,11 +2,9 @@
     cpu: true
     memory: true
     disk: /          # Monitoruje główny dysk systemu
-
 - search:
     provider: google
     target: _blank
-
 - datetime:
     text_size: xl
     format:
