@@ -2,19 +2,19 @@
 .env
 .envT
 *.env
-secrets.yaml
 
-# Databases and heavy data
-**/data/
-**/uptime-kuma-data/
-**/config/filebrowser.db
-
-# Certificates (Security)
+# Foldery z danymi i certyfikaty
 certs/
+**/uptime-kuma-data/
+**/nginx-proxy-manager/data/
+**/filebrowser/data/
 
-# Scripts
-backup-configs.sh
-
-# OS and Logs
+# Ignoruj bazy danych i logi
+*.db
+*.db-journal
 *.log
-.DS_Store
+
+# Ale POZWÓL na pliki konfiguracyjne (YAML)
+!**/docker-compose.yml
+!**/*.yaml
+!**/*.yml
