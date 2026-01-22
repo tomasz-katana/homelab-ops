@@ -1,17 +1,20 @@
-# Docker dynamic data
-nginx-proxy-manager/data/
-nginx-proxy-manager/letsencrypt/
-adguard-home/work/
-adguard-home/conf/AdGuardHome.yaml
-homepage/config/logs/
-
-# Secrets & SQLite
-*.db
-*.sqlite
-*.log
+# Secrets
 .env
-custom.env
+.envT
 *.env
+secrets.yaml
+
+# Databases and heavy data
+**/data/
+**/uptime-kuma-data/
+**/config/filebrowser.db
+
+# Certificates (Security)
 certs/
-*.key
-*.crt
+
+# Scripts
+backup-configs.sh
+
+# OS and Logs
+*.log
+.DS_Store

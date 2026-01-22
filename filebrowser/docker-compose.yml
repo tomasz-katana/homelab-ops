@@ -2,12 +2,13 @@ services:
   filebrowser:
     image: filebrowser/filebrowser:latest
     container_name: filebrowser
-    restart: unless-stopped
-    user: "1000:1000"
+    # Usuwamy linię "user", aby kontener wystartował jako root i sam nadał sobie uprawnienia
     ports:
-      - '8090:80'
+      - "8081:80"
     volumes:
-      - /home/tomek/homelab-ops:/srv
-      - ./config:/database
-    # Poniższa linia wymusza bazę danych w konkretnym miejscu
-    command: [ "-d", "/database/filebrowser.db", "--address", "0.0.0.0", "--port", "80" ]
+      - /home/tomek/homelab-ops/filebrowser/data:/srv
+      - /home/tomek/homelab-ops/filebrowser/config:/database
+    environment:
+      - PUID=1000
+      - PGID=1000
+    restart: unless-stopped

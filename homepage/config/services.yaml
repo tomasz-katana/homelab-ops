@@ -1,7 +1,7 @@
 - Infrastructure:
     - AdGuard Home:
         icon: adguard-home.png
-        href: http://adguard.lab
+        href: http://adguard.lab:8080
         description: DNS Filter
         widget:
             type: adguard
@@ -11,28 +11,37 @@
 
     - Portainer:
         icon: portainer.png
-        href: https://ubuntu-lab.tailc02cb2.ts.net
+        href: https://ubuntu-lab.tailc02cb2.ts.net/portainer
         description: Docker Management
         widget:
-            type: portainer
-            url: https://ubuntu-lab.tailc02cb2.ts.net
-            env: 1
-            key: "{{HOMEPAGE_VAR_PORTAINER_KEY}}"
+            type: docker # Zmieniamy na docker dla stabilności
+            url: /var/run/docker.sock
+            container: portainer
 
 - Monitoring:
     - Uptime Kuma:
         icon: uptime-kuma.png
-        href: http://kuma.lab
-        description: Status Monitoring
+        href: http://192.168.1.53:3001
+        widget:
+            type: docker
+            url: /var/run/docker.sock
+            container: uptime-kuma
+
     - Grafana:
         icon: grafana.png
-        href: http://grafana.lab
-        description: System Monitoring
+        href: http://grafana.lab:3002 # Poprawiony port na 3002
+        widget:
+            type: docker
+            url: /var/run/docker.sock
+            container: grafana
+
     - Prometheus:
         icon: prometheus.png
         href: http://192.168.1.53:9090
-        description: Metrics Base
-
+        widget:
+            type: docker
+            url: /var/run/docker.sock
+            container: prometheus
 - Storage:
     - File Manager:
         icon: filebrowser.png

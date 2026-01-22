@@ -1,39 +1,32 @@
 services:
   prometheus:
-    image: prom/prometheus:latest
+    image: prom/prometheus
     container_name: prometheus
-    restart: unless-stopped
     ports:
-      - '9090:9090'
+      - 9090:9090        # <--- DODANO: Teraz Uptime Kuma go zobaczy
     volumes:
       - ./prometheus:/etc/prometheus
-      - prometheus_data:/prometheus
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
+    restart: always
 
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana
     container_name: grafana
-    restart: unless-stopped
     ports:
-      - '3002:3000'
-    volumes:
-      - grafana_data:/var/lib/grafana
+      - 3002:3000
+    restart: always
 
   node-exporter:
-    image: prom/node-exporter:latest
+    image: prom/node-exporter
     container_name: node-exporter
-    restart: unless-stopped
-    volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-    command:
-      - '--path.procfs=/host/proc'
-      - '--path.sysfs=/host/sys'
-      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($|/)'
+    ports:
+      - 9100:9100        # <--- DODANO: Żebyś mógł monitorować zużycie CPU/RAM
+    restart: always
 
-volumes:
-  prometheus_data:
-  grafana_data:
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    restart: always
+    volumes:
+      - ./uptime-kuma-data:/app/data
+    ports:
+      - 3001:3001

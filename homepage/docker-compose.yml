@@ -8,7 +8,12 @@ services:
     volumes:
       - ./config:/app/config
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+
     environment:
       - HOMEPAGE_ALLOWED_HOSTS=homepage.lab,192.168.1.53
-    env_file:
-    - ./config/custom.env
+      - HOMEPAGE_VAR_ADGUARD_PASS=${ADGUARD_PASS}
+      - HOMEPAGE_VAR_PORTAINER_KEY=${PORTAINER_KEY}
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
