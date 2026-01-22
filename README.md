@@ -44,6 +44,7 @@ git pull origin main
 # Update and restart containers
 docker compose up -d --remove-orphans
 ```
+
 ##🔒 Security Hardening
 Zero-Exposure: No ports are forwarded on the router. Access is only possible via local network or Tailscale Funnel/VPN.
 
