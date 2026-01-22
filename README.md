@@ -1,41 +1,51 @@
 # 🚀 HomeLab Infrastructure as Code (IaC)
 
-This repository contains the configuration files for my home laboratory environment. The project focuses on automation, network security, and centralized management.
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Ubuntu](https://img.shields.io/badge/ubuntu-%23E95420.svg?style=for-the-badge&logo=ubuntu&logoColor=white)
+![Tailscale](https://img.shields.io/badge/tailscale-%23ff5f5f.svg?style=for-the-badge&logo=tailscale&logoColor=white)
+![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=Prometheus&logoColor=white)
+
+This repository contains the configuration files for my home laboratory environment based on a **Dell OptiPlex** server. The project focuses on automation, network security, and centralized management.
 
 ## 🌟 Key Features
-- **Unified Dashboard:** Centralized access via **Homepage** with live Docker metrics.
+- **Unified Dashboard:** Centralized access via **Homepage** with live Docker metrics (CPU/RAM).
 - **Local DNS Management:** Network-wide ad-blocking and `.lab` domain resolution via **AdGuard Home**.
 - **Reverse Proxy:** SSL management and internal routing using **Nginx Proxy Manager**.
 - **Proactive Monitoring:** 24/7 service availability checks with **Uptime Kuma**.
-- **Infrastructure as Code:** Fully containerized setup managed via Docker Compose.
+- **Metrics & Visualization:** Full monitoring stack with **Prometheus**, **Node-Exporter**, and **Grafana**.
 
-## 🏗️ Architecture & Stack
-- **Hardware:** Dell OptiPlex (Proxmox Hypervisor)
-- **Operating System:** Ubuntu Server 24.04 LTS
-- **Network Routing:** Nginx Proxy Manager (Ports 80/443)
-- **Security:** Hardened SSH, UFW Firewall, and Tailscale Zero-Trust VPN.
+## 🏗️ Architecture & Traffic Flow
+Traffic is routed internally through the following path:
+`User -> AdGuard Home (DNS) -> Nginx Proxy Manager (Reverse Proxy) -> Docker Container`
 
-## 🛡️ Deployed Services & Access
-| Service | Domain | Description |
-| :--- | :--- | :--- |
-| **Homepage** | `http://homepage.lab` | Main entry point & system dashboard |
-| **AdGuard Home** | `http://adguard.lab` | DNS Filtering & Local DNS Rewrites |
-| **Nginx Proxy** | `http://nginx.lab` | Reverse Proxy Management UI |
-| **Portainer** | `http://portainer.lab` | Docker Container Management |
-| **Uptime Kuma** | `http://kuma.lab` | Service Uptime & Notifications |
-| **FileBrowser** | `http://files.lab` | Personal cloud & web file manager |
-| **Prometheus** | `http://prometeus.lab` | Time-series database for metrics |
-| **Grafana**    | `http://grafana.lab`       | Monitoring dashboards (Port 3002) |
+## 💻 Hardware Specification
+- **Model:** Dell OptiPlex SFF
+- **OS:** Ubuntu Server 24.04 LTS
+- **VPN:** Tailscale (Zero-Trust Remote Access)
 
+## 🛡️ Deployed Services
+| Service | Domain | Description | Status |
+| :--- | :--- | :--- | :---: |
+| **Homepage** | `http://homepage.lab` | Main entry point & dashboard | ✅ |
+| **AdGuard Home**| `http://adguard.lab` | DNS Filtering & Rewrites | ✅ |
+| **Nginx Proxy** | `http://nginx.lab` | Reverse Proxy UI (Port 81) | ✅ |
+| **Portainer** | `http://portainer.lab` | Docker Management (Port 9443)| ✅ |
+| **Uptime Kuma** | `http://kuma.lab` | Uptime Monitoring | ✅ |
+| **FileBrowser** | `http://files.lab` | Web File Manager (Tailscale) | ✅ |
+| **Prometheus** | `http://prometheus.lab`| Metrics Database (Port 9090) | ✅ |
+| **Grafana** | `http://grafana.lab` | Data Visualization (Port 3002)| ✅ |
 
 ## 🛠️ Usage & Maintenance
-To deploy or update services:
+To update the infrastructure:
 ```bash
+# Sync changes from GitHub
 git pull origin main
-docker compose up -d
-```
 
-## 🔒 Security Hardening
-Zero-Exposure: No ports are forwarded on the router. Access is only possible via local network or Tailscale VPN.
+# Update and restart containers
+docker compose up -d --remove-orphans
+#🔒 Security Hardening
+Zero-Exposure: No ports are forwarded on the router. Access is only possible via local network or Tailscale Funnel/VPN.
 
-Version Control: All configuration changes are tracked in this repository, excluding sensitive data via .gitignore.
+Privacy: AdGuard Home acts as a recursive DNS with encryption.
+
+Backups: Configurations are tracked here, sensitive secrets are managed via .env files (excluded from Git).
