@@ -1,0 +1,3 @@
+- weather:
+    provider: openmeteo
+    location: Pionki, Poland

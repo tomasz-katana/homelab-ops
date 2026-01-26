@@ -1,2 +1,13 @@
----
-tlsInsecure: true
+layout:
+  Infrastructure:
+    style: row
+    columns: 3
+  Monitoring:
+    style: row
+    columns: 3
+  Security & Tools:
+    style: row
+    columns: 2
+  System Metrics:
+    style: row
+    columns: 2

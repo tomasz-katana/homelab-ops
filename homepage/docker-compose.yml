@@ -4,15 +4,24 @@ services:
     container_name: homepage
     restart: unless-stopped
     ports:
-      - '3000:3000'
+      - 3000:3000
     volumes:
-      - ./config:/app/config
+      - /home/tomek/homelab-ops/homepage/config:/app/config
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /host/proc:/host/proc:ro
-      - /host/sys:/host/sys:ro
+    env_file:
+      - .env
     environment:
-      - HOMEPAGE_VAR_ADGUARD_PASS=${ADGUARD_PASS}
+      - TZ=Europe/Warsaw
+      - HOMEPAGE_ALLOWED_HOSTS=192.168.1.53,192.168.1.53:3000,homepage.lab,localhost,127.0.0.1
       - HOMEPAGE_VAR_PORTAINER_KEY=${PORTAINER_KEY}
-      - HOMEPAGE_ALLOWED_HOSTS=192.168.1.53,homepage.lab,localhost,127.0.0.1
+      - HOMEPAGE_VAR_ADGUARD_PASS=${ADGUARD_PASS}
+      - HOMEPAGE_VAR_NPM_USER=${NPM_USER}
+      - HOMEPAGE_VAR_NPM_PASS=${NPM_PASS}
+      - HOMEPAGE_VAR_GRAFANA_KEY=${GRAFANA_KEY}
+      - HOMEPAGE_VAR_UPTIME_KUMA_USER=${UPTIME_KUMA_USER}
+      - HOMEPAGE_VAR_UPTIME_KUMA_PASS=${UPTIME_KUMA_PASS}
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
     extra_hosts:
       - "host.docker.internal:host-gateway"

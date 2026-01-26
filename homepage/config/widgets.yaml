@@ -1,19 +1,13 @@
-- resources:
-    cpu: true
-    memory: true
-    disk: /
-
-- search:
-    provider: google
-    target: _blank
-
 - datetime:
     format:
-      dateStyle: long
       timeStyle: short
-
+      dateStyle: long
+      hourCycle: h23
 - weather:
     provider: openmeteo
-    latitude: 51.48
-    longitude: 21.45
+    latitude: 51.47
+    longitude: 21.44
     units: metric
+- search:
+    provider: google
+    focus: true

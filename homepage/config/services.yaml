@@ -1,54 +1,83 @@
 - Infrastructure:
-    - AdGuard Home:
-        icon: adguard-home.png
-        href: http://adguard.lab:8080
-        description: DNS Filter
-        widget:
-            type: adguard
-            url: http://192.168.1.53:8080
-            username: tomek
-            password: "{{HOMEPAGE_VAR_ADGUARD_PASS}}"
     - Portainer:
         icon: portainer.png
-        href: https://ubuntu-lab.tailc02cb2.ts.net/portainer
-        description: Docker Management
+        href: https://192.168.1.53:9443
+        server: my-docker
+        container: portainer
         widget:
-            type: docker # Zmieniamy na docker dla stabilności
-            url: /var/run/docker.sock
-            container: portainer
+          type: portainer
+          url: https://192.168.1.53:9443
+          key: "{{HOMEPAGE_VAR_PORTAINER_KEY}}"
+          env: 3
+          verify: false
+    - AdGuard Home:
+        icon: adguard-home.png
+        href: http://192.168.1.53:8080
+        server: my-docker
+        container: adguard-home
+        widget:
+          type: adguard
+          url: http://192.168.1.53:8080
+          username: tomek
+          password: "{{HOMEPAGE_VAR_ADGUARD_PASS}}"
+    - Nginx Proxy Manager:
+        icon: nginx-proxy-manager.png
+        href: http://192.168.1.53:81
+        server: my-docker
+        container: nginx-proxy-manager-app-1
+        widget:
+          type: npm
+          url: http://192.168.1.53:81
+          username: "{{HOMEPAGE_VAR_NPM_USER}}"
+          password: "{{HOMEPAGE_VAR_NPM_PASS}}"
+
 - Monitoring:
     - Uptime Kuma:
         icon: uptime-kuma.png
         href: http://192.168.1.53:3001
+        server: my-docker
+        container: uptime-kuma
         widget:
-            type: docker
-            url: /var/run/docker.sock
-            container: uptime-kuma
+          type: uptimekuma
+          url: http://192.168.1.53:3001
+          slug: default
     - Grafana:
         icon: grafana.png
-        href: http://grafana.lab:3002 # Poprawiony port na 3002
+        href: http://192.168.1.53:3002
+        server: my-docker
+        container: grafana
         widget:
-            type: docker
-            url: /var/run/docker.sock
-            container: grafana
+          type: prometheus
+          url: http://192.168.1.53:9090
+          metric: grafana_stats_dashboards_total
+          label: Dashboards
     - Prometheus:
         icon: prometheus.png
         href: http://192.168.1.53:9090
+        server: my-docker
+        container: prometheus
         widget:
-            type: docker
-            url: /var/run/docker.sock
-            container: prometheus
-- Storage:
-    - File Manager:
-        icon: filebrowser.png
-        href: http://files.lab
-        description: Cloud File Access
-        widget:
-            type: docker
-            url: /var/run/docker.sock
-            container: filebrowser
-- Security:
+          type: prometheus
+          url: http://192.168.1.53:9090
+
+- Security & Tools:
     - Vaultwarden:
         icon: vaultwarden.png
         href: http://192.168.1.53:8083
-        description: Password Manager
+        server: my-docker
+        container: vaultwarden
+    - File Browser:
+        icon: filebrowser.png
+        href: http://192.168.1.53:8081
+        server: my-docker
+        container: filebrowser
+
+- System Metrics:
+    - Node Exporter:
+        icon: prometheus.png
+        server: my-docker
+        container: node-exporter
+    - cAdvisor:
+        icon: cadvisor.png
+        server: my-docker
+        container: cadvisor
