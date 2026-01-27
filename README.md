@@ -6,25 +6,28 @@ This repository contains the configuration files for my home laboratory environm
 
 ```mermaid
 graph TD
+    subgraph "Automation & Management"
+        Ansible[Ansible Playbooks] -->|Configures| Host[Ubuntu Host]
+        Ansible -->|Maintains| Services{Docker Containers}
+    end
+
     User([User/Client]) -->|Tailscale VPN| AdGuard[AdGuard Home: DNS]
     AdGuard --> NPM[Nginx Proxy Manager: Reverse Proxy]
-    NPM --> Services{Docker Containers}
+    NPM --> Services
     
     subgraph "Observability Stack"
         Services -->|Metrics| Prom[Prometheus]
         Services -->|Logs| Loki[Grafana Loki]
-        Host[Ubuntu Host] -->|API| Glances[Glances API]
+        Host -->|API| Glances[Glances API]
         Prom --> Grafana[Grafana]
         Loki --> Grafana
     end
     
-    subgraph "Management & UI"
+    subgraph "Interface"
         Homepage[Homepage Dashboard]
         Homepage -->|Live Stats| Services
-        Homepage -->|System Metrics| Glances
     end
 ```
-
 ## 🌟 Key Features
 
 Unified Dashboard: Centralized access via GetHomepage with real-time API integration (CPU/RAM/Disk metrics).
