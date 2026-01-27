@@ -1,0 +1,32 @@
+---
+- name: HomeLab System Health Check
+  hosts: localhost
+  connection: local
+  become: true
+  tasks:
+    - name: Ensure the system is up to date (Check only)
+      apt:
+        update_cache: yes
+      register: apt_status
+
+    - name: Check Docker service status
+      systemd:
+        name: docker
+      register: docker_status
+
+    - name: Display system info
+      debug:
+        msg: 
+          - "OS: {{ ansible_distribution }} {{ ansible_distribution_version }}"
+          - "Memory Total: {{ ansible_memtotal_mb }} MB"
+          - "Docker State: {{ docker_status.status.ActiveState }}"
+
+    - name: Check if backup script exists
+      stat:
+        path: "/home/tomek/homelab-ops/backup-configs.sh"
+      register: backup_script
+
+    - name: Report backup script status
+      debug:
+        msg: "Backup script is present and ready."
+      when: backup_script.stat.exists

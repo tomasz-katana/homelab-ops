@@ -1,0 +1,29 @@
+---
+- name: Docker Infrastructure Maintenance
+  hosts: homelab
+  become: true
+  tasks:
+    - name: Remove unused Docker data (prune)
+      docker_prune:
+        containers: yes
+        images: yes
+        networks: yes
+        builder_cache: yes
+      register: prune_result
+
+    - name: Show how much space was freed
+      debug:
+        msg: "Freed {{ prune_result.space_reclaimed | default(0) | human_readable }} of disk space."
+
+    - name: Get status of all containers
+      docker_host_info:
+        containers: yes
+      register: docker_info
+
+    - name: Check if any containers are not running
+      debug:
+        msg: "Warning: Container {{ item.Names | first }} seems down! Status: {{ item.Status }}"
+      loop: "{{ docker_info.containers }}"
+      when: "'Up' not in item.Status"
+      loop_control:
+        label: "{{ item.Names | first }}"

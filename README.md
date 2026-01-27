@@ -51,12 +51,35 @@ Secret Management: Sensitive data is managed via environment variables to preven
 ## 🏗️ Traffic Flow
 User -> Tailscale -> AdGuard Home (DNS) -> NPM (Reverse Proxy) -> Docker Container
 
-## 💻 Hardware Specification
-Model: Dell OptiPlex 7040
+## 💻 Infrastructure & Hardware
+The environment is built on a physical Dell OptiPlex SFF host, utilizing a Proxmox/KVM Virtualization layer for optimized resource management and isolation.
+
+#🏠 Physical Host
+Model: Dell OptiPlex 7040 SFF
+
+Physical CPU: Intel® Core™ i5 series
+
+Total Physical RAM: 16GB DDR4
+
+Host OS: Proxmox VE / KVM Hypervisor
+
+#🖥️ Virtual Machine (Lab Node)
+Model: QEMU Virtual Machine
+
+vCPU: 2 Cores (QEMU Virtual CPU v2.5+)
 
 OS: Ubuntu Server 24.04 LTS
 
-Management: Docker Compose & Git-based configuration.
+Resource Management: Dynamic memory allocation and virtio-optimized networking.
+
+#🌡️ Health Monitoring
+Hardware and VM health are tracked via Glances API and Node-Exporter:
+
+Resource Tracking: Real-time vCPU and RAM pressure monitoring.
+
+Disk Health: Virtual block device monitoring with Prometheus.
+
+Uptime: Monitored at both the VM and Service levels.
 
 ## 📦 Deployed Services
 
