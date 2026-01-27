@@ -1,0 +1,54 @@
+---
+- name: HomeLab Infrastructure Backup
+  hosts: homelab
+  become: true
+  vars:
+    source_dir: "/home/tomek/homelab-ops"
+    backup_dir: "/home/tomek/backups"
+    date: "{{ ansible_date_time.date }}"
+
+  tasks:
+    - name: Ensure backup directory exists
+      file:
+        path: "{{ backup_dir }}"
+        state: directory
+        owner: tomek
+        group: tomek
+        mode: '0755'
+
+    - name: Create compressed archive of homelab-ops
+      archive:
+        path: "{{ source_dir }}"
+        dest: "{{ backup_dir }}/homelab_backup_{{ date }}.tar.gz"
+        format: gz
+        exclude_path:
+          - "{{ source_dir }}/.git"
+          - "{{ source_dir }}/.ansible"
+      register: backup_result
+
+    - name: Verify backup file creation
+      debug:
+        msg: "Backup successfully created at {{ backup_result.dest }}"
+      when: backup_result.state is defined and backup_result.state == 'file'
+
+    - name: Find backups older than 7 days
+      find:
+        paths: "{{ backup_dir }}"
+        patterns: "homelab_backup_*.tar.gz"
+        age: 7d
+      register: old_backups
+
+    - name: Delete expired backup files
+      file:
+        path: "{{ item.path }}"
+        state: absent
+      loop: "{{ old_backups.files }}"
+      when: old_backups.matched > 0
+
+    - name: Schedule daily backup at 3:00 AM
+      cron:
+        name: "Daily Homelab Infrastructure Backup"
+        minute: "0"
+        hour: "3"
+        user: "tomek"
+        job: "/usr/bin/ansible-playbook -i /home/tomek/homelab-ops/ansible/inventory.ini /home/tomek/homelab-ops/ansible/backup-homelab.yml > /dev/null 2>&1"
