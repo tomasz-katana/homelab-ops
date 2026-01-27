@@ -111,10 +111,8 @@ sudo ufw status numbered
 ```
 
 ## 💾 Backups & Persistence
-Configurations: All YAML and configuration files are versioned in this repository.
-
-Automation: The backup-configs.sh script automates the collection of active configurations from the server.
-
-Secrets: Excluded from Git history; managed via .env files and Homepage internal secret engine.
-
-Data Volumes: Critical data (like Vaultwarden database) is stored in persistent Docker volumes for easy backup and recovery.
+- **Automated Infrastructure Backup**: A dedicated **Ansible** playbook (`backup-homelab.yml`) runs daily at 3:00 AM via **Cron**. It creates compressed tarballs of the entire configuration directory with a 7-day retention policy.
+- **Configurations**: All YAML, Ansible playbooks, and environment structures are versioned in this repository for full disaster recovery.
+- **Secrets Management**: Sensitive data is strictly excluded from Git history. Managed via `.env` files and the **Homepage** internal secret engine.
+- **Data Volumes**: Critical service data (e.g., Vaultwarden database, AdGuard configurations) is stored in persistent Docker volumes, ensuring data remains intact during container updates.
+- **Manual Sync**: The `backup-configs.sh` script remains available for on-demand collection of active configurations.
