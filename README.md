@@ -1,35 +1,67 @@
-# HomeLab Infrastructure as Code (IaC)
+## 🚀 HomeLab Infrastructure as Code (IaC)
 
-This repository contains the configuration for my home laboratory.
-The project focuses on automation, security, and observability.
+This repository contains the configuration files for my home laboratory environment based on a Dell OptiPlex server. The project focuses on automation, network security, and centralized management.
 
----
+## 🌟 Key Features
 
-## Architecture
+* **Unified Dashboard:** Centralized access via Homepage with live Docker metrics (CPU/RAM).
+* **Password Management:** Vaultwarden self-hosted for maximum privacy.
+* **Local DNS Management:** Network-wide ad-blocking and .lab domain resolution via AdGuard Home.
+* **Reverse Proxy:** SSL management and internal routing using Nginx Proxy Manager.
+* **Proactive Monitoring:** 24/7 service availability checks with Uptime Kuma.
+* **Metrics & Visualization:** Full monitoring stack with Prometheus, Node-Exporter, and Grafana.
 
-Internal traffic flow:
-User -> Tailscale VPN -> AdGuard Home (DNS) -> NPM (Proxy) -> Containers
+## 🛡️ Security Hardening
 
-```mermaid
-graph TD
-    User -->|Tailscale| VPN{Network}
-    VPN --> AGH[AdGuard Home]
-    AGH --> NPM[Nginx Proxy]
-    NPM --> Services[Docker]
-```
+* **Zero-Exposure:** No ports are forwarded on the router. Access to SSH, HTTP, and FileBrowser is restricted to the internal network.
+* **Firewall (UFW):** Strict "Allow" policy only for the local subnet 192.168.1.0/24. All other incoming traffic is denied.
+* **Remote Access:** Possible only via Tailscale VPN (Zero-Trust Remote Access).
 
-## Key Features
-Unified Dashboard: Homepage with live Docker metrics.
-Zero-Trust Access: Secure connectivity via Tailscale VPN.
-DNS Privacy: Ad-blocking and .lab domains via AdGuard Home.
-Observability: Metrics stack with Prometheus and Grafana.
-## Deployed Services
-ServiceDomainDescriptionStatusHomepagehttp://homepage.labMain DashboardOKVaultwardenhttps://vault.labPassword ManagerOKAdGuardhttp://adguard.labDNS FilteringOKNPMhttp://nginx.labReverse ProxyOKPortainerhttp://portainer.labDocker ManagementOKUptime Kumahttp://kuma.labMonitoringOKGrafanahttp://grafana.labVisualizationOK
-## Usage and Maintenance
-Update Infrastructure
-```git pull origin main
+## 🏗️ Architecture & Traffic Flow
+
+Traffic is routed internally through the following path:
+`User` -> `AdGuard Home (DNS)` -> `Nginx Proxy Manager (Reverse Proxy)` -> `Docker Container`
+
+## 💻 Hardware Specification
+
+* **Model:** Dell OptiPlex SFF
+* **OS:** Ubuntu Server 24.04 LTS
+* **Management:** Docker Compose & Git-based configuration.
+
+## 📦 Deployed Services
+
+| Service | Domain | Description | Status |
+| :--- | :--- | :--- | :--- |
+| **Homepage** | http://homepage.lab | Main entry point & dashboard | ✅ |
+| **Vaultwarden** | https://vault.lab | Secure Password Manager | ✅ |
+| **AdGuard Home** | http://adguard.lab | DNS Filtering & Rewrites | ✅ |
+| **Nginx Proxy** | http://nginx.lab | Reverse Proxy UI (Port 81) | ✅ |
+| **Portainer** | http://portainer.lab | Docker Management | ✅ |
+| **Uptime Kuma** | http://kuma.lab | Uptime Monitoring | ✅ |
+| **FileBrowser** | http://files.lab | Web File Manager | ✅ |
+| **Prometheus** | http://prometheus.lab | Metrics Database | ✅ |
+| **Grafana** | http://grafana.lab | Data Visualization | ✅ |
+| **Node-Exporter** | Internal | Host hardware metrics | ✅ |
+
+## 🛠️ Usage & Maintenance
+
+To update the infrastructure:
+
+```bash
+# Sync changes from GitHub
+git pull origin main
+
+
+# Update and restart containers
 docker compose up -d --remove-orphans
+
+# Verify firewall status
+sudo ufw status numbered
 ```
-## Backups
-Configs: Tracked in this repository.
-Secrets: Managed via .env files (Git ignored).
+
+## 💾 Backups
+Configurations: Tracked in this repository.
+
+Secrets: Managed via environment variables and excluded from public history.
+
+Vaultwarden: Database backups are performed from the /vw-data volume.
