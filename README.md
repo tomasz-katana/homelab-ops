@@ -20,8 +20,19 @@ This repository contains the configuration files for my home laboratory environm
 ## 🏗️ Architecture & Traffic Flow
 
 Traffic is routed internally through the following path:
-`User` -> `AdGuard Home (DNS)` -> `Nginx Proxy Manager (Reverse Proxy)` -> `Docker Container`
-
+```mermaid
+graph TD
+    User((User)) -->|Tailscale VPN| VPN{Internal Network}
+    VPN -->|DNS Query| AGH[AdGuard Home]
+    AGH -->|HTTP/HTTPS| NPM[Nginx Proxy Manager]
+    NPM -->|Internal Route| Services[Docker Containers]
+    
+    subgraph "Observability Stack"
+    NodeExp[Node Exporter] --> Prom[Prometheus]
+    cAdv[cAdvisor] --> Prom
+    Prom --> Grafana[Grafana]
+    end
+```
 ## 💻 Hardware Specification
 
 * **Model:** Dell OptiPlex SFF
