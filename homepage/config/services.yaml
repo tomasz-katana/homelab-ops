@@ -77,6 +77,15 @@
         icon: prometheus.png
         server: my-docker
         container: node-exporter
+        widget:
+          type: prometheus
+          url: http://192.168.1.53:9090
+          metric: 
+            - (1 - (avg(irate(node_cpu_seconds_total{mode="idle"}[5m])))) * 100
+            - (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100
+          label: 
+            - CPU (%)
+            - RAM (%)
     - cAdvisor:
         icon: cadvisor.png
         server: my-docker
