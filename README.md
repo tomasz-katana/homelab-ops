@@ -30,26 +30,18 @@ graph TD
 ```
 ## 🌟 Key Features
 
-Unified Dashboard: Centralized access via GetHomepage with real-time API integration (CPU/RAM/Disk metrics).
-
-Full Observability Stack: Implementation of Prometheus, Grafana, and Loki for centralized metrics and log management.
-
-Service Monitoring: 24/7 availability checks with Uptime Kuma providing historical status bars.
-
-Local DNS Management: Network-wide ad-blocking and .lab domain resolution via AdGuard Home.
-
-Reverse Proxy: SSL management and internal routing using Nginx Proxy Manager.
-
-Password Management: Vaultwarden self-hosted for maximum privacy and security.
+- **Unified Dashboard**: Centralized access via **GetHomepage** with real-time API integration (CPU/RAM/Disk metrics).
+- **Full Observability Stack**: Implementation of **Prometheus, Grafana, and Loki** for centralized metrics and log management.
+- **Service Monitoring**: 24/7 availability checks with **Uptime Kuma** providing historical status bars.
+- **Local DNS Management**: Network-wide ad-blocking and `.lab` domain resolution via **AdGuard Home**.
+- **Reverse Proxy**: SSL management and internal routing using **Nginx Proxy Manager**.
+- **Password Management**: **Vaultwarden** self-hosted for maximum privacy and security.
 
 ## 🛡️ Security Hardening
-Zero-Exposure: No ports are forwarded on the router. Access is restricted to the internal network.
-
-Firewall (UFW): Strict "Allow" policy only for the local subnet. All other incoming traffic is denied.
-
-Remote Access: Secure access via Tailscale VPN (Zero-Trust Remote Access architecture).
-
-Secret Management: Sensitive data is managed via environment variables to prevent accidental exposure in public history.
+- **Zero-Exposure**: No ports are forwarded on the router. Access is restricted to the internal network.
+- **Firewall (UFW)**: Strict "Allow" policy only for the local subnet (192.168.1.0/24). All other incoming traffic is denied.
+- **Remote Access**: Secure access via **Tailscale VPN** (Zero-Trust Remote Access architecture).
+- **Secret Management**: Sensitive data is managed via environment variables and `.env` files to prevent accidental exposure in public history.
 
 ## 🏗️ Traffic Flow
 User -> Tailscale -> AdGuard Home (DNS) -> NPM (Reverse Proxy) -> Docker Container
@@ -57,41 +49,31 @@ User -> Tailscale -> AdGuard Home (DNS) -> NPM (Reverse Proxy) -> Docker Contain
 ## 💻 Infrastructure & Hardware
 The environment is built on a physical Dell OptiPlex SFF host, utilizing a Proxmox/KVM Virtualization layer for optimized resource management and isolation.
 
-#🏠 Physical Host
-Model: Dell OptiPlex 7040 SFF
+### 🏠 Physical Host
+- **Model**: Dell OptiPlex 7040 SFF
+- **Physical CPU**: Intel® Core™ i5 series
+- **Total Physical RAM**: 16GB DDR4
+- **Host OS**: Proxmox VE / KVM Hypervisor
 
-Physical CPU: Intel® Core™ i5 series
+### 🖥️ Virtual Machine (Lab Node)
+- **Model**: QEMU Virtual Machine
+- **vCPU**: 2 Cores (QEMU Virtual CPU v2.5+)
+- **OS**: Ubuntu Server 24.04 LTS
+- **Resource Management**: Dynamic memory allocation and virtio-optimized networking.
 
-Total Physical RAM: 16GB DDR4
-
-Host OS: Proxmox VE / KVM Hypervisor
-
-#🖥️ Virtual Machine (Lab Node)
-Model: QEMU Virtual Machine
-
-vCPU: 2 Cores (QEMU Virtual CPU v2.5+)
-
-OS: Ubuntu Server 24.04 LTS
-
-Resource Management: Dynamic memory allocation and virtio-optimized networking.
-
-#🌡️ Health Monitoring
-Hardware and VM health are tracked via Glances API and Node-Exporter:
-
-Resource Tracking: Real-time vCPU and RAM pressure monitoring.
-
-Disk Health: Virtual block device monitoring with Prometheus.
-
-Uptime: Monitored at both the VM and Service levels.
+### 🌡️ Health Monitoring
+Hardware and VM health are tracked via **Glances API** and **Node-Exporter**:
+- **Resource Tracking**: Real-time vCPU and RAM pressure monitoring.
+- **Disk Health**: Virtual block device monitoring with Prometheus.
+- **Uptime**: Monitored at both the VM and Service levels.
 
 ## 🤖 Automation & Configuration Management (Ansible)
-This project utilizes Ansible to enforce system state and automate repetitive maintenance tasks, moving towards a full Infrastructure as Code approach.
+This project utilizes **Ansible** to enforce system state and automate repetitive maintenance tasks, moving towards a full *Infrastructure as Code* approach.
 
-Inventory Management: Defined inventory.ini for structured node management.
+- **Inventory Management**: Defined `inventory.ini` for structured node management.
+- **System Audits**: `system-check.yml` playbook for automated health and resource verification.
+- **Docker Orchestration**: `docker-maintenance.yml` for automated cleanup (pruning) and container status validation.
 
-System Audits: system-check.yml playbook for automated health and resource verification.
-
-Docker Orchestration: docker-maintenance.yml for automated cleanup (pruning) and container status validation.
 ## 📦 Deployed Services
 
 | Service | Domain | Description | Status |
