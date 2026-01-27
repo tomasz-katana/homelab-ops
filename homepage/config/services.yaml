@@ -4,6 +4,7 @@
         href: https://192.168.1.53:9443
         server: my-docker
         container: portainer
+        health: https://192.168.1.53:9443
         widget:
           type: portainer
           url: https://192.168.1.53:9443
@@ -15,16 +16,22 @@
         href: http://192.168.1.53:8080
         server: my-docker
         container: adguard-home
+        # Kluczowe zmiany dla statusu:
+        health: http://192.168.1.53:8080
+        proxy: true
+        showstats: true
         widget:
           type: adguard
           url: http://192.168.1.53:8080
           username: tomek
           password: "{{HOMEPAGE_VAR_ADGUARD_PASS}}"
+          version: v1
     - Nginx Proxy Manager:
         icon: nginx-proxy-manager.png
         href: http://192.168.1.53:81
         server: my-docker
         container: nginx-proxy-manager-app-1
+        health: http://192.168.1.53:81
         widget:
           type: npm
           url: http://192.168.1.53:81
@@ -40,6 +47,7 @@
         widget:
           type: uptimekuma
           url: http://192.168.1.53:3001
+          monitors: true
           slug: default
     - Grafana:
         icon: grafana.png
@@ -66,26 +74,54 @@
         href: http://192.168.1.53:8083
         server: my-docker
         container: vaultwarden
+        health: http://192.168.1.53:8083
     - File Browser:
         icon: filebrowser.png
         href: http://192.168.1.53:8081
         server: my-docker
         container: filebrowser
+        health: http://192.168.1.53:8081
 
 - System Metrics:
-    - Node Exporter:
-        icon: prometheus.png
-        server: my-docker
-        container: node-exporter
+    - CPU Usage:
+        icon: glances.png
         widget:
-          type: prometheus
-          url: http://192.168.1.53:9090
-          metric: 
-            - (1 - (avg(irate(node_cpu_seconds_total{mode="idle"}[5m])))) * 100
-            - (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100
-          label: 
-            - CPU (%)
-            - RAM (%)
+          type: customapi
+          url: http://192.168.1.53:61208/api/4/quicklook
+          mappings:
+            - field: cpu
+              label: CPU
+              format: percent
+        server: my-docker
+        container: glances
+    - RAM Usage:
+        icon: glances.png
+        widget:
+          type: customapi
+          url: http://192.168.1.53:61208/api/4/quicklook
+          mappings:
+            - field: mem
+              label: RAM
+              format: percent
+        server: my-docker
+        container: glances
+    - Disk Usage:
+        icon: glances.png
+        widget:
+          type: customapi
+          url: http://192.168.1.53:61208/api/4/fs
+          mappings:
+            - field: 0.percent
+              label: DISK
+              format: percent
+        server: my-docker
+        container: glances
+    - Log Management:
+        icon: grafana.png
+        href: http://192.168.1.53:3002/explore
+        description: Centralized Logs (Grafana)
+        server: my-docker
+        container: loki
     - cAdvisor:
         icon: cadvisor.png
         server: my-docker

@@ -42,3 +42,13 @@ services:
       - /dev/disk/:/dev/disk:ro
     ports:
       - 8002:8080
+  glances:
+    image: nicolargo/glances:latest
+    container_name: glances
+    network_mode: host
+    pid: host
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - "GLANCES_OPT=-w"
+    restart: unless-stopped

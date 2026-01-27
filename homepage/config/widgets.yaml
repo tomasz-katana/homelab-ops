@@ -1,13 +1,8 @@
 - datetime:
     format:
-      timeStyle: short
       dateStyle: long
+      timeStyle: short
       hourCycle: h23
-- weather:
-    provider: openmeteo
-    latitude: 51.47
-    longitude: 21.44
-    units: metric
 - search:
     provider: google
     focus: true
