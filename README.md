@@ -81,6 +81,14 @@ Disk Health: Virtual block device monitoring with Prometheus.
 
 Uptime: Monitored at both the VM and Service levels.
 
+## 🤖 Automation & Configuration Management (Ansible)
+This project utilizes Ansible to enforce system state and automate repetitive maintenance tasks, moving towards a full Infrastructure as Code approach.
+
+Inventory Management: Defined inventory.ini for structured node management.
+
+System Audits: system-check.yml playbook for automated health and resource verification.
+
+Docker Orchestration: docker-maintenance.yml for automated cleanup (pruning) and container status validation.
 ## 📦 Deployed Services
 
 | Service | Domain | Description | Status |
@@ -97,17 +105,23 @@ Uptime: Monitored at both the VM and Service levels.
 | **Glances** | Internal | Host hardware metrics API | ✅ |
 
 ## 🛠️ Usage & Maintenance
-To sync changes and maintain the infrastructure:
 
-```Bash
+To maintain the infrastructure and ensure consistency, I use a combined workflow of custom scripts and Ansible automation:
 
+```bash
 # 1. Sync current server config to repository
 ./backup-configs.sh
 
-# 2. Update and restart containers
+# 2. Run system health check via Ansible
+ansible-playbook -i ansible/inventory.ini ansible/system-check.yml
+
+# 3. Perform Docker cleanup and automated maintenance
+ansible-playbook -i ansible/inventory.ini ansible/docker-maintenance.yml
+
+# 4. Apply changes and restart containers
 docker compose up -d --remove-orphans
 
-# 3. Verify firewall status
+# 5. Verify security status (Firewall)
 sudo ufw status numbered
 ```
 
